@@ -1,6 +1,8 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, lazy, Suspense, useState } from "react";
+
+const HeroScene = lazy(() => import("./HeroScene").then((module) => ({ default: module.HeroScene })));
 
 const skillGroups = [
   { label: "Frontend", skills: ["HTML", "CSS", "JavaScript", "React.js", "Tailwind CSS"] },
@@ -76,8 +78,7 @@ export default function Home() {
           </div>
         </div>
         <div className="hero-visual" aria-hidden="true">
-          <div className="code-card"><div className="code-card-top"><span /><span /><span /></div><pre><code><b>const</b> developer = {'{'}{`\n`}  name: <i>"Burhan"</i>,{`\n`}  focus: [<i>"React"</i>, <i>"Node.js"</i>],{`\n`}  builds: <i>"useful web experiences"</i>{`\n`}{'}'};</code></pre></div>
-          <div className="orbit orbit-one" /><div className="orbit orbit-two" />
+          <Suspense fallback={<div className="scene-fallback"><span /></div>}><HeroScene /></Suspense>
         </div>
       </section>
 

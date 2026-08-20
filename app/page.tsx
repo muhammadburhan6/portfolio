@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, lazy, Suspense, useState } from "react";
+import { FormEvent, lazy, Suspense, useEffect, useState } from "react";
 
 const HeroScene = lazy(() => import("./HeroScene").then((module) => ({ default: module.HeroScene })));
 
@@ -33,6 +33,36 @@ function ArrowIcon() { return <span aria-hidden="true">↗</span>; }
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [formNote, setFormNote] = useState("");
+
+  useEffect(() => {
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!finePointer || reducedMotion) return;
+
+    const surfaces = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt]"));
+    const cleanups = surfaces.map((surface) => {
+      const onMove = (event: PointerEvent) => {
+        const bounds = surface.getBoundingClientRect();
+        const x = (event.clientX - bounds.left) / bounds.width;
+        const y = (event.clientY - bounds.top) / bounds.height;
+        surface.style.setProperty("--tilt-x", `${(0.5 - y) * 7}deg`);
+        surface.style.setProperty("--tilt-y", `${(x - 0.5) * 7}deg`);
+        surface.style.setProperty("--glow-x", `${x * 100}%`);
+        surface.style.setProperty("--glow-y", `${y * 100}%`);
+      };
+      const onLeave = () => {
+        surface.style.setProperty("--tilt-x", "0deg");
+        surface.style.setProperty("--tilt-y", "0deg");
+      };
+      surface.addEventListener("pointermove", onMove);
+      surface.addEventListener("pointerleave", onLeave);
+      return () => {
+        surface.removeEventListener("pointermove", onMove);
+        surface.removeEventListener("pointerleave", onLeave);
+      };
+    });
+    return () => cleanups.forEach((cleanup) => cleanup());
+  }, []);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -85,11 +115,11 @@ export default function Home() {
       <section className="section about" id="about">
         <div className="section-heading"><p>01 / About</p><h2>Building practical software,<br />one thoughtful detail at a time.</h2></div>
         <div className="about-grid">
-          <div className="about-copy">
+          <div className="about-copy tilt-surface" data-tilt>
             <p>I’m a Software Engineering graduate with hands-on experience developing web and software projects from interface to database. I enjoy turning requirements into responsive, user-friendly applications with clean and maintainable code.</p>
             <p>My interests span frontend and React development, full-stack systems, backend development, database integration, and learning modern software technologies that make products more useful.</p>
           </div>
-          <div className="about-points">
+          <div className="about-points tilt-surface" data-tilt>
             <div><span>01</span><p>Responsive, accessible interfaces</p></div><div><span>02</span><p>Frontend and backend integration</p></div><div><span>03</span><p>Practical database-driven projects</p></div><div><span>04</span><p>Continuous technical learning</p></div>
           </div>
         </div>
@@ -98,16 +128,16 @@ export default function Home() {
       <section className="section skills-section" id="skills">
         <div className="section-heading heading-row"><div><p>02 / Skills</p><h2>Tools I use to build.</h2></div><p className="section-note">A project-backed toolkit across web, backend, database, and mobile development.</p></div>
         <div className="top-skills">
-          {["React.js", "JavaScript", "HTML & CSS", "Node.js / Express.js", "MongoDB"].map((skill, index) => <div className="top-skill" key={skill}><span>0{index + 1}</span><h3>{skill}</h3><i /></div>)}
+          {["React.js", "JavaScript", "HTML & CSS", "Node.js / Express.js", "MongoDB"].map((skill, index) => <div className="top-skill tilt-surface" data-tilt key={skill}><span>0{index + 1}</span><h3>{skill}</h3><i /></div>)}
         </div>
         <div className="skill-groups">
-          {skillGroups.map((group) => <article key={group.label}><h3>{group.label}</h3><div>{group.skills.map((skill) => <span key={skill}>{skill}</span>)}</div></article>)}
+          {skillGroups.map((group) => <article className="tilt-surface" data-tilt key={group.label}><h3>{group.label}</h3><div>{group.skills.map((skill) => <span key={skill}>{skill}</span>)}</div></article>)}
         </div>
       </section>
 
       <section className="section projects-section" id="projects">
         <div className="section-heading"><p>03 / Selected work</p><h2>Projects shaped by real<br />problems and practice.</h2></div>
-        <article className="featured-project">
+        <article className="featured-project tilt-surface" data-tilt>
           <div className="project-index">01</div>
           <div className="featured-copy">
             <p className="project-label">Final Year Project · Featured</p><h3>SkillSwap — Skill Exchange Platform</h3>
@@ -119,7 +149,7 @@ export default function Home() {
           <div className="project-art" aria-hidden="true"><div className="swap-mark"><span>SKILL</span><b>⇄</b><span>SWAP</span></div><p>Learn. Teach. Exchange.</p></div>
         </article>
         <div className="project-grid">
-          {projects.map((project) => <article className="project-card" key={project.name}><div className="project-card-top"><span>{project.number}</span><i>Academic / Personal</i></div><h3>{project.name}</h3><p>{project.description}</p><div className="project-tags">{project.stack.map((item) => <span key={item}>{item}</span>)}</div></article>)}
+          {projects.map((project) => <article className="project-card tilt-surface" data-tilt key={project.name}><div className="project-card-top"><span>{project.number}</span><i>Academic / Personal</i></div><h3>{project.name}</h3><p>{project.description}</p><div className="project-tags">{project.stack.map((item) => <span key={item}>{item}</span>)}</div></article>)}
         </div>
       </section>
 
@@ -130,13 +160,13 @@ export default function Home() {
 
       <section className="section education-section" id="education">
         <div className="section-heading"><p>05 / Education</p><h2>Academic foundation.</h2></div>
-        <div className="education-card"><div className="edu-mark">UMT</div><div><p>Degree</p><h3>BS Software Engineering</h3><span>University of Management and Technology (UMT), Lahore</span></div></div>
-        <div className="activities"><h3>Activities &amp; focus</h3><div><span>Final Year Project — SkillSwap</span><span>Software Engineering Projects</span><span>Web Development Activities</span><span>University Technology &amp; Programming Activities</span><span>Team-Based Software Development</span></div></div>
+        <div className="education-card tilt-surface" data-tilt><div className="edu-mark">UMT</div><div><p>Degree</p><h3>BS Software Engineering</h3><span>University of Management and Technology (UMT), Lahore</span></div></div>
+        <div className="activities tilt-surface" data-tilt><h3>Activities &amp; focus</h3><div><span>Final Year Project — SkillSwap</span><span>Software Engineering Projects</span><span>Web Development Activities</span><span>University Technology &amp; Programming Activities</span><span>Team-Based Software Development</span></div></div>
       </section>
 
       <section className="contact-section" id="contact">
-        <div className="contact-copy"><p>06 / Contact</p><h2>Let’s build something<br /><em>together.</em></h2><span>Have an internship, junior developer opportunity, or project in mind? Use the form to prepare an email, or contact me directly.</span><div className="contact-links"><a href="mailto:mburhanshariq@gmail.com">mburhanshariq@gmail.com <ArrowIcon /></a><a href="https://github.com/muhammadburhan6" target="_blank" rel="noreferrer">GitHub <ArrowIcon /></a><a href="https://www.linkedin.com/in/muhammad-burhan-shariq-190493277" target="_blank" rel="noreferrer">LinkedIn <ArrowIcon /></a></div></div>
-        <form onSubmit={handleSubmit} noValidate={false}>
+        <div className="contact-copy tilt-surface" data-tilt><p>06 / Contact</p><h2>Let’s build something<br /><em>together.</em></h2><span>Have an internship, junior developer opportunity, or project in mind? Use the form to prepare an email, or contact me directly.</span><div className="contact-links"><a href="mailto:mburhanshariq@gmail.com">mburhanshariq@gmail.com <ArrowIcon /></a><a href="https://github.com/muhammadburhan6" target="_blank" rel="noreferrer">GitHub <ArrowIcon /></a><a href="https://www.linkedin.com/in/muhammad-burhan-shariq-190493277" target="_blank" rel="noreferrer">LinkedIn <ArrowIcon /></a></div></div>
+        <form className="tilt-surface" data-tilt onSubmit={handleSubmit} noValidate={false}>
           <label>Name<input name="name" type="text" autoComplete="name" placeholder="Your name" minLength={2} required /></label>
           <label>Email<input name="email" type="email" autoComplete="email" placeholder="you@example.com" required /></label>
           <label>Message<textarea name="message" placeholder="Tell me about the opportunity or project" minLength={10} rows={5} required /></label>

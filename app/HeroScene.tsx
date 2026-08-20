@@ -104,9 +104,9 @@ export function HeroScene() {
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let frame = 0;
-    const clock = new THREE.Clock();
+    const startedAt = performance.now();
     const render = () => {
-      const time = clock.getElapsedTime();
+      const time = (performance.now() - startedAt) / 1000;
       world.rotation.y += (pointer.x - world.rotation.y) * 0.035;
       world.rotation.x += (-pointer.y - world.rotation.x) * 0.035;
       if (!reducedMotion) {

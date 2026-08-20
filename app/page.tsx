@@ -64,6 +64,7 @@ export default function Home() {
             <a className="button button-primary" href="#projects">View My Projects <span>↘</span></a>
             <a className="button button-secondary" href="#contact">Contact Me</a>
             <a className="text-link" href="https://github.com/muhammadburhan6" target="_blank" rel="noreferrer">View GitHub <ArrowIcon /></a>
+            <a className="text-link" href="https://www.linkedin.com/in/muhammad-burhan-shariq-190493277" target="_blank" rel="noreferrer">LinkedIn <ArrowIcon /></a>
           </div>
         </div>
         <div className="hero-visual" aria-hidden="true">
@@ -125,7 +126,7 @@ export default function Home() {
       </section>
 
       <section className="contact-section" id="contact">
-        <div className="contact-copy"><p>06 / Contact</p><h2>Let’s build something<br /><em>together.</em></h2><span>Have an internship, junior developer opportunity, or project in mind? Use the form to prepare your message.</span><a href="https://github.com/muhammadburhan6" target="_blank" rel="noreferrer">github.com/muhammadburhan6 <ArrowIcon /></a></div>
+        <div className="contact-copy"><p>06 / Contact</p><h2>Let’s build something<br /><em>together.</em></h2><span>Have an internship, junior developer opportunity, or project in mind? Use the form to prepare your message.</span><div className="contact-links"><a href="https://github.com/muhammadburhan6" target="_blank" rel="noreferrer">GitHub <ArrowIcon /></a><a href="https://www.linkedin.com/in/muhammad-burhan-shariq-190493277" target="_blank" rel="noreferrer">LinkedIn <ArrowIcon /></a></div></div>
         <form onSubmit={handleSubmit} noValidate={false}>
           <label>Name<input name="name" type="text" autoComplete="name" placeholder="Your name" minLength={2} required /></label>
           <label>Email<input name="email" type="email" autoComplete="email" placeholder="you@example.com" required /></label>
@@ -135,7 +136,7 @@ export default function Home() {
         </form>
       </section>
 
-      <footer><a className="brand" href="#home">MBS<span>.</span></a><p>Muhammad Burhan Shariq · Frontend / Full-Stack Web Developer</p><a href="https://github.com/muhammadburhan6" target="_blank" rel="noreferrer">GitHub <ArrowIcon /></a></footer>
+      <footer><a className="brand" href="#home">MBS<span>.</span></a><p>Muhammad Burhan Shariq · Frontend / Full-Stack Web Developer</p><div className="footer-links"><a href="https://github.com/muhammadburhan6" target="_blank" rel="noreferrer">GitHub <ArrowIcon /></a><a href="https://www.linkedin.com/in/muhammad-burhan-shariq-190493277" target="_blank" rel="noreferrer">LinkedIn <ArrowIcon /></a></div></footer>
     </main>
   );
 }

@@ -90,14 +90,17 @@ h1 em { color:transparent; -webkit-text-stroke:1.5px rgba(238,241,246,.68); font
 .contact-section { display:grid; grid-template-columns:1fr 1fr; gap:clamp(50px,10vw,160px); padding:clamp(90px,11vw,165px) clamp(24px,6vw,92px); background:var(--accent); color:#07110e; }
 .contact-copy>p { color:#164f43; }
 .contact-copy h2 { margin:0 0 28px; font:650 clamp(44px,6vw,80px)/1 var(--font-geist-sans); letter-spacing:-.055em; } .contact-copy h2 em { color:transparent; -webkit-text-stroke:1.2px rgba(7,17,14,.65); font-style:normal; }
-.contact-copy>span { display:block; max-width:560px; line-height:1.65; color:#20544b; } .contact-copy>a { display:inline-block; margin-top:30px; font:600 13px var(--font-geist-mono); border-bottom:1px solid rgba(7,17,14,.3); padding-bottom:5px; }
+.contact-copy>span { display:block; max-width:560px; line-height:1.65; color:#20544b; }
+.contact-links { display:flex; flex-wrap:wrap; gap:24px; margin-top:30px; }
+.contact-links a { font:600 13px var(--font-geist-mono); border-bottom:1px solid rgba(7,17,14,.3); padding-bottom:5px; }
 form { display:flex; flex-direction:column; gap:22px; }
 form label { color:#164f43; font:700 11px var(--font-geist-mono); letter-spacing:.1em; text-transform:uppercase; }
 input,textarea { width:100%; display:block; margin-top:8px; padding:14px 0; border:0; border-bottom:1px solid rgba(7,17,14,.32); border-radius:0; outline:0; background:transparent; color:#07110e; text-transform:none; resize:vertical; }
 input::placeholder,textarea::placeholder { color:rgba(7,17,14,.48); } input:focus,textarea:focus { border-color:#07110e; }
 form .button-primary { width:max-content; margin-top:10px; background:#07110e; color:var(--accent); border-color:#07110e; }
 .form-note { margin:0; max-width:520px; color:#164f43; font-size:13px; line-height:1.5; }
-footer { min-height:110px; display:flex; align-items:center; justify-content:space-between; gap:30px; padding:24px clamp(24px,6vw,92px); border-top:1px solid var(--line); color:var(--muted); font-size:13px; } footer p { text-align:center; } footer>a:last-child { color:var(--accent); }
+footer { min-height:110px; display:flex; align-items:center; justify-content:space-between; gap:30px; padding:24px clamp(24px,6vw,92px); border-top:1px solid var(--line); color:var(--muted); font-size:13px; } footer p { text-align:center; }
+.footer-links { display:flex; gap:20px; color:var(--accent); }
 
 @keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
 .reveal { animation:rise .7s ease both; }

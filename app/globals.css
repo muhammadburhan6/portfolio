@@ -9,6 +9,8 @@ a { color:inherit; text-decoration:none; } button,input,textarea { font:inherit;
 .brand { font:800 21px var(--font-geist-mono); letter-spacing:-.04em; } .brand span { color:var(--accent); }
 .desktop-nav { display:flex; align-items:center; gap:30px; color:var(--muted); font-size:14px; }
 .desktop-nav a { transition:color .2s ease; } .desktop-nav a:hover,.desktop-nav a:focus-visible { color:var(--ink); }
+.desktop-nav .nav-cv { display:inline-flex; align-items:center; gap:7px; color:var(--ink); font-weight:700; }
+.desktop-nav .nav-cv span { color:var(--accent); }
 .desktop-nav .nav-contact { padding:11px 18px; border:1px solid rgba(99,230,190,.45); border-radius:999px; color:var(--accent); }
 .menu-button { display:none; width:43px; height:43px; border:1px solid var(--line); border-radius:7px; background:transparent; cursor:pointer; }
 .menu-button span { display:block; width:18px; height:1px; margin:5px auto; background:var(--ink); }

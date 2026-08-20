@@ -88,6 +88,7 @@ export default function Home() {
         <a className="brand" href="#home" onClick={closeMenu} aria-label="Muhammad Burhan Shariq — home">MBS<span>.</span></a>
         <nav className={`desktop-nav ${menuOpen ? "is-open" : ""}`} aria-label="Primary navigation">
           <a href="#home" onClick={closeMenu}>Home</a><a href="#about" onClick={closeMenu}>About</a><a href="#skills" onClick={closeMenu}>Skills</a><a href="#projects" onClick={closeMenu}>Projects</a><a href="#education" onClick={closeMenu}>Education</a>
+          <a className="nav-cv" href="/Muhammad-Burhan-Shariq-CV.pdf" download>Download CV <span aria-hidden="true">↓</span></a>
           <a className="nav-contact" href="#contact" onClick={closeMenu}>Contact</a>
         </nav>
         <button className="menu-button" type="button" aria-label="Toggle navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span /><span /></button>
